@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CM_EA_20181124
+namespace ZadaniaWPF
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml

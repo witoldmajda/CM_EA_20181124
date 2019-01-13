@@ -1,0 +1,95 @@
+﻿<Window x:Class="ZadaniaWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZadaniaWPF"
+        xmlns:mw="clr-namespace:ZadaniaWPF.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="ZadaniaWPF" Height="500" Width="500">
+    <Window.DataContext>
+        <mw:ZadaniaViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <Style x:Key="stylPrzycisku" TargetType="Button">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Width" Value="85" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <BooleanToVisibilityConverter x:Key="boolToVisibility" />
+        <local:PriorytetZadaniaToString x:Key="priorytetToString" />
+        <local:PriorytetZadaniaToBrush x:Key="priorytetToBrush" />
+        <local:BoolToBrushConverter x:Key="czyZrealizowaneToBrush" />
+        <local:BoolToBrushConverter x:Key="czyPoTerminieToBrush"
+                                      KolorDlaFalszu="Green" KolorDlaPrawdy="Red"/>
+        <local:BoolToTextDecorationConverter x:Key="czyZrealizowaneToTextDecoration" />
+    </Window.Resources>    
+    <Grid>
+        <TextBlock Margin="10, 10, 0, 0" HorizontalAlignment="Left"
+                   VerticalAlignment="Top" Text="Liczba zadań: ">
+            <Run Text="{Binding Path=ListaZadan.Count, Mode=OneWay}" />
+        </TextBlock>
+        <ListBox x:Name="lbListaZadan" Margin="10,35,10,200"
+                 ItemsSource="{Binding Path=ListaZadan}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" Margin="3">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Opis, Mode=OneWay}" FontSize="20" 
+                                       Foreground="{Binding CzyZrealizowane, 
+                                        Converter={StaticResource czyZrealizowaneToBrush}}"
+                                       TextDecorations="{Binding Path=CzyZrealizowane, Mode=OneWay,
+                                        Converter={StaticResource czyZrealizowaneToTextDecoration}}"
+                                       />
+                            <Button Content="Zrealizowane" Command="{Binding Path=OznaczJakoZrealizowane}"
+                                    Style="{StaticResource stylPrzycisku}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled,
+                                    Mode=OneWay,Converter={StaticResource boolToVisibility}}"
+                                    />
+                            <Button Content="Niezrealizowane" Command="{Binding Path=OznaczJakoNiezrealizowane}"
+                                    Style="{StaticResource stylPrzycisku}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled,
+                                    Mode=OneWay,Converter={StaticResource boolToVisibility}}"
+                                    />
+                        </StackPanel>
+                        <TextBlock>
+                            Priorytet: <Run Text="{Binding Path=Priorytet, Mode=OneWay, 
+                                Converter={StaticResource priorytetToString}}"
+                                            Foreground="{Binding Path=Priorytet, Mode=OneWay,
+                                Converter={StaticResource priorytetToBrush}}" />,
+                            
+                            Termin: <Run Text="{Binding Path=PlanowanyTerminRealizacji, Mode=OneWay,
+                                StringFormat={}{0:dd MMMM yyyy}, ConverterCulture=pl-PL}" 
+                                         Foreground="{Binding Path=CzyZadaniePozostajeNieZrealizowanePoZadanymTerminie,
+                                Mode=OneWay, Converter={StaticResource czyPoTerminieToBrush}}"
+                                         />
+                            Utworzone: <Run Text="{Binding Path=DataUtworzenia, Mode=OneWay,
+                                StringFormat={}{0:dd MMMM yyyy}, ConverterCulture=pl-PL}" />
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Control.Margin" Value="3" />
+                    <Setter Property="Control.BorderBrush" Value="Black" />
+                    <Setter Property="Control.BorderThickness" Value="1" />
+                    <Style.Triggers>
+                        <Trigger Property="Control.IsMouseOver" Value="True">
+                            <Setter Property="Control.Background" Value="LightGray" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+    </Grid>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding Zapisz}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+</Window>
