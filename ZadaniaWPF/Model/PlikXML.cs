@@ -24,7 +24,7 @@ namespace ZadaniaWPF.Model
                     new XElement("DataUtworzenia", zadanie.DataUtworzenia),
                     new XElement("PlanowanaDataRealizacji", zadanie.PlanowanyTerminRealizacji.ToString(CultureInfo.InvariantCulture)),
                     new XElement("Priorytet", (byte)zadanie.Priorytet),
-                    new XElement("Czy zrealizowane", zadanie.CzyZrealizowane.ToString()))
+                    new XElement("CzyZrealizowane", zadanie.CzyZrealizowane.ToString()))
                     )
                     );
                 xml.Save(sciezkaPliku);
@@ -42,7 +42,7 @@ namespace ZadaniaWPF.Model
             {
                 XDocument xml = XDocument.Load(sciezkaPliku);
                 IEnumerable<Zadanie> dane =
-                    from zadanie in xml.Root.Descendants("Zadanie")
+                    from zadanie in xml.Root.Descendants("Zadania")
                     select new Zadanie(
                         zadanie.Element("Opis").Value,
                         DateTime.Parse(zadanie.Element("DataUtworzenia").Value),
