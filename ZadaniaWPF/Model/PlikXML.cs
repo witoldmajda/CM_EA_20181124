@@ -42,11 +42,11 @@ namespace ZadaniaWPF.Model
             {
                 XDocument xml = XDocument.Load(sciezkaPliku);
                 IEnumerable<Zadanie> dane =
-                    from zadanie in xml.Root.Descendants("Zadania")
+                    from zadanie in xml.Root.Descendants("Zadanie")
                     select new Zadanie(
                         zadanie.Element("Opis").Value,
                         DateTime.Parse(zadanie.Element("DataUtworzenia").Value),
-                        DateTime.Parse(zadanie.Element("PlanowanaDataRealizacji").Value),
+                        DateTime.Parse(zadanie.Element("PlanowanaDataRealizacji").Value, CultureInfo.InvariantCulture),
                         (PriorytetZadania)byte.Parse(zadanie.Element("Priorytet").Value),
                         bool.Parse(zadanie.Element("CzyZrealizowane").Value));
                 Zadania zadania = new Zadania();

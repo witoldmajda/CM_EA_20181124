@@ -35,17 +35,18 @@ namespace ZadaniaWPF.ViewModel
             if (System.IO.File.Exists(SciezkaPlikuXml))
                 model = Model.PlikXML.Czytaj(SciezkaPlikuXml);
             else
+            {
                 model = new Model.Zadania();
 
-            //testy poczatek
-            model.DodajZadanie(new Model.Zadanie("Pierwsze", DateTime.Now, DateTime.Now.AddDays(2), Model.PriorytetZadania.Wazne, false));
-            model.DodajZadanie(new Model.Zadanie("Drugie", DateTime.Now, DateTime.Now.AddDays(2), Model.PriorytetZadania.Wazne, false));
-            model.DodajZadanie(new Model.Zadanie("Trzecie", DateTime.Now, DateTime.Now.AddDays(1), Model.PriorytetZadania.MniejWazne, false));
-            model.DodajZadanie(new Model.Zadanie("Czwarte", DateTime.Now, DateTime.Now.AddDays(3), Model.PriorytetZadania.Krytyczne, false));
-            model.DodajZadanie(new Model.Zadanie("Piąte", DateTime.Now, new DateTime(2015, 03, 15, 1, 2, 3), Model.PriorytetZadania.Krytyczne, true));
-            model.DodajZadanie(new Model.Zadanie("Szóste", DateTime.Now, new DateTime(2015, 03, 14, 1, 2, 3), Model.PriorytetZadania.Krytyczne, true));
-            ////testy koniec
-
+                //testy poczatek
+                model.DodajZadanie(new Model.Zadanie("Pierwsze", DateTime.Now, DateTime.Now.AddDays(2), Model.PriorytetZadania.Wazne, false));
+                model.DodajZadanie(new Model.Zadanie("Drugie", DateTime.Now, DateTime.Now.AddDays(2), Model.PriorytetZadania.Wazne, false));
+                model.DodajZadanie(new Model.Zadanie("Trzecie", DateTime.Now, DateTime.Now.AddDays(1), Model.PriorytetZadania.MniejWazne, false));
+                model.DodajZadanie(new Model.Zadanie("Czwarte", DateTime.Now, DateTime.Now.AddDays(3), Model.PriorytetZadania.Krytyczne, false));
+                model.DodajZadanie(new Model.Zadanie("Piąte", DateTime.Now, new DateTime(2015, 03, 15, 1, 2, 3), Model.PriorytetZadania.Krytyczne, true));
+                model.DodajZadanie(new Model.Zadanie("Szóste", DateTime.Now, new DateTime(2015, 03, 14, 1, 2, 3), Model.PriorytetZadania.Krytyczne, true));
+                ////testy koniec
+            }
             KopiujZadania();
         }
 
