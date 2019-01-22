@@ -86,6 +86,12 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
+        <Button Content="Usun zadanie"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Margin="10,0,0,165" Width="100" Height="25"
+                Style="{StaticResource stylPrzycisku}"
+                Command="{Binding Path=UsunZadanie}"
+                CommandParameter="{Binding ElementName=lbListaZadan, Path=SelectedIndex}" />
     </Grid>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">

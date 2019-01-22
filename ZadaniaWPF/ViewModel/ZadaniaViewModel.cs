@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Windows.Input;
+using System.Windows;
 
 namespace ZadaniaWPF.ViewModel
 {
@@ -86,5 +87,70 @@ namespace ZadaniaWPF.ViewModel
             }
 
         }
+
+        private ICommand usunZadanie;
+
+        public ICommand UsunZadanie
+        {
+            get
+            {
+                if(usunZadanie == null)
+                {
+                    usunZadanie = new RelayCommand(
+                        o =>
+                        {
+                            int indeksZadania = (int)o;
+                            ZadanieViewModel zadanie = ListaZadan[indeksZadania];
+                            if (!zadanie.CzyZrealizowane)
+                            {
+                                MessageBoxResult mbr = MessageBox.Show("Czy jestes pewien, że chcesz usunąć niezrealizowane zadanie?",
+                                    "Zadania WPF", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                                if (mbr == MessageBoxResult.No) return;
+                            }
+                            ListaZadan.Remove(zadanie);
+                        },
+                        o =>
+                        {
+                            if (o == null) return false;
+                            int indeksZadania = (int)o;
+                            return indeksZadania >= 0;
+                        }
+                        );
+                    
+                }
+
+                return usunZadanie;
+            }            
+        }
+
+        private ICommand dodajZadanie;
+
+        public ICommand DodajZadanie
+        {
+            get
+            {
+                if(dodajZadanie == null)
+                {
+                    dodajZadanie = new RelayCommand(
+                        o => 
+                        {
+                            ZadanieViewModel zadanie = o as ZadanieViewModel;
+                            if(zadanie != null)
+                            {
+                                ListaZadan.Add(zadanie);
+                            }
+                        },
+                        o =>
+                        {
+                            return (o as ZadaniaViewModel) != null;
+                        }
+                        );
+                }
+                return dodajZadanie;
+            }
+            
+        }
+
+
     }
 }
