@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ZadaniaWPF"
         xmlns:mw="clr-namespace:ZadaniaWPF.ViewModel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="ZadaniaWPF" Height="500" Width="500">
     <Window.DataContext>
@@ -27,6 +28,7 @@
         <local:BoolToBrushConverter x:Key="czyPoTerminieToBrush"
                                       KolorDlaFalszu="Green" KolorDlaPrawdy="Red"/>
         <local:BoolToTextDecorationConverter x:Key="czyZrealizowaneToTextDecoration" />
+        <local:ZadanieConverter x:Key="tworzZadanie" />
     </Window.Resources>    
     <Grid>
         <TextBlock Margin="10, 10, 0, 0" HorizontalAlignment="Left"
@@ -92,6 +94,36 @@
                 Style="{StaticResource stylPrzycisku}"
                 Command="{Binding Path=UsunZadanie}"
                 CommandParameter="{Binding ElementName=lbListaZadan, Path=SelectedIndex}" />
+
+        <GroupBox Header="Nowe zadanie" Margin="10, 0, 10, 10" MinWidth="420" Height="140" VerticalAlignment="Bottom">
+            <Grid>
+                <Label Content="Opis:" Margin="10, 5, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <TextBox x:Name="tbOpis" Height="23" Margin="10, 30, 10, 0" VerticalAlignment="Top" />
+                <Label Content="Priorytet:" Margin="10, 60, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <ComboBox x:Name="cbPriorytet" Margin="10, 85, 0, 0" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ComboBoxItem>Mniej wazne</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">Wazne</ComboBoxItem>
+                    <ComboBoxItem>Krytyczne</ComboBoxItem>
+                </ComboBox>
+                <Label Content="Termin realizacji:" Margin="160, 60, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <DatePicker x:Name="dpTerminRealizacji" Margin="160, 85, 0, 0"
+                  HorizontalAlignment="Left" VerticalAlignment="Top"
+                       SelectedDate="{x:Static s:DateTime.Now}" />
+                <Button Content="Dodaj zadanie" Margin="0, 83, 9.8, 0"
+                        HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Width="100" Height="25"
+                        Style="{StaticResource stylPrzycisku}"
+                        Command="{Binding Path=DodajZadanie}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource tworzZadanie}">
+                            <Binding ElementName="tbOpis" Path="Text" />
+                            <Binding ElementName="dpTerminRealizacji" Path="SelectedDate" />
+                            <Binding ElementName="cbPriorytet" Path="Text" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
+        </GroupBox>
     </Grid>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">

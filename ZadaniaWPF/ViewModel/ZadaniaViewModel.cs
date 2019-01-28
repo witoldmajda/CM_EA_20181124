@@ -142,7 +142,7 @@ namespace ZadaniaWPF.ViewModel
                         },
                         o =>
                         {
-                            return (o as ZadaniaViewModel) != null;
+                            return (o as ZadanieViewModel) != null;
                         }
                         );
                 }

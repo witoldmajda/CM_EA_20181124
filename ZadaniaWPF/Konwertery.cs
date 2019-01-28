@@ -79,4 +79,30 @@ namespace ZadaniaWPF
             throw new NotImplementedException();
         }
     }
+
+    public class ZadanieConverter : IMultiValueConverter
+    {
+        PriorytetZadaniaToString pzts = new PriorytetZadaniaToString();
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            string opis = (string)values[0];
+            DateTime terminUtworzenia = DateTime.Now;
+            DateTime? planowanyTerminRealizacji = (DateTime?)values[1];
+            Model.PriorytetZadania priorytet = (Model.PriorytetZadania)pzts.ConvertBack(values[2], typeof(Model.PriorytetZadania), null, CultureInfo.CurrentCulture);
+            if(!string.IsNullOrWhiteSpace(opis) && planowanyTerminRealizacji.HasValue)
+            {
+                return new ViewModel.ZadanieViewModel(opis, terminUtworzenia, planowanyTerminRealizacji.Value, priorytet, false);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
