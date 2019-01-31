@@ -11,6 +11,33 @@ namespace ZadaniaWPF.Model
     {
         private List<Zadanie> listaZadan = new List<Zadanie>();
 
+        private Comparison<Zadanie> porownywaniePriorytetow = new Comparison<Zadanie>(
+            (Zadanie zadanie1, Zadanie zadanie2) =>
+            {
+                int wynik = -zadanie1.Priorytet.CompareTo(zadanie2.Priorytet);
+                if(wynik == 0) wynik = zadanie1.PlanowanyTerminRealizacji.CompareTo(zadanie2.PlanowanyTerminRealizacji);
+                return wynik;
+            }
+        );
+
+        private Comparison<Zadanie> porownywaniePlanowanychTerminowRealizacji = new Comparison<Zadanie>(
+            (Zadanie zadanie1, Zadanie zadanie2) =>
+            {
+                int wynik = zadanie1.PlanowanyTerminRealizacji.CompareTo(zadanie2.PlanowanyTerminRealizacji);
+                if (wynik == 0) wynik = -zadanie1.Priorytet.CompareTo(zadanie2.Priorytet);
+                return wynik;
+            }
+            );
+
+        public void SortujZadania(
+            bool porownywaniePriorytetowCzyPlanowanychTerminowRealizacji)
+        {
+            if (porownywaniePriorytetowCzyPlanowanychTerminowRealizacji)
+                listaZadan.Sort(porownywaniePriorytetow);
+            else
+                listaZadan.Sort(porownywaniePlanowanychTerminowRealizacji);
+        }
+
         public void DodajZadanie(Zadanie zadanie)
         {
             listaZadan.Add(zadanie);
@@ -47,5 +74,10 @@ namespace ZadaniaWPF.Model
             }
 
         }
+
+       
+
+    
+
     }
 }

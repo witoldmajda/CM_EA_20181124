@@ -151,6 +151,27 @@ namespace ZadaniaWPF.ViewModel
             
         }
 
+        private ICommand sortujZadania;
+
+        public ICommand SortujZadania
+        {
+            get
+            {
+                if(sortujZadania == null)
+                
+                    sortujZadania = new RelayCommand(
+                        o =>
+                        {
+                            bool porownywaniePriorytetowCzyPlanowanychTerminowRealizacji = bool.Parse((string)o);
+                            model.SortujZadania(porownywaniePriorytetowCzyPlanowanychTerminowRealizacji);
+                            KopiujZadania();
+                        }
+                        );
+                    return sortujZadania;
+                                
+            }            
+        }
+
 
     }
 }

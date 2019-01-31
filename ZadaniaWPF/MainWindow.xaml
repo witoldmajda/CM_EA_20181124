@@ -29,6 +29,18 @@
                                       KolorDlaFalszu="Green" KolorDlaPrawdy="Red"/>
         <local:BoolToTextDecorationConverter x:Key="czyZrealizowaneToTextDecoration" />
         <local:ZadanieConverter x:Key="tworzZadanie" />
+        <Style TargetType="{x:Type DatePickerTextBox}">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <TextBox Text="{Binding Path=SelectedDate,
+                            StringFormat={}{0:dd MMMM yyyy}, ConverterCulture=pl-PL,
+                            RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </Window.Resources>    
     <Grid>
         <TextBlock Margin="10, 10, 0, 0" HorizontalAlignment="Left"
@@ -95,6 +107,18 @@
                 Command="{Binding Path=UsunZadanie}"
                 CommandParameter="{Binding ElementName=lbListaZadan, Path=SelectedIndex}" />
 
+        <Button Content="Sortuj wg priorytetow"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Margin="120, 0, 0, 165" Width="130" Height="25"
+                Style="{StaticResource stylPrzycisku}"
+                Command="{Binding Path=SortujZadania}" CommandParameter="True" />
+
+        <Button Content="Sortuj wg terminow"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Margin="260, 0, 0, 165" Width="120" Height="25"
+                Style="{StaticResource stylPrzycisku}"
+                Command="{Binding Path=SortujZadania}" CommandParameter="False" />
+
         <GroupBox Header="Nowe zadanie" Margin="10, 0, 10, 10" MinWidth="420" Height="140" VerticalAlignment="Bottom">
             <Grid>
                 <Label Content="Opis:" Margin="10, 5, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -113,7 +137,7 @@
                         HorizontalAlignment="Right" VerticalAlignment="Top"
                         Width="100" Height="25"
                         Style="{StaticResource stylPrzycisku}"
-                        Command="{Binding Path=DodajZadanie}">
+                        Command="{Binding Path=DodajZadanie}" Click="Button_Click">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource tworzZadanie}">
                             <Binding ElementName="tbOpis" Path="Text" />

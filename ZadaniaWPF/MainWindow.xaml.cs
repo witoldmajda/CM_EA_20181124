@@ -24,5 +24,15 @@ namespace ZadaniaWPF
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e) //zdarzenie powodujące przewinięcie scrola na dół po dodaniu nowego zzdarzenia
+        {
+            if(VisualTreeHelper.GetChildrenCount(lbListaZadan) > 0)
+            {
+                Border border = (Border)VisualTreeHelper.GetChild(lbListaZadan, 0);
+                ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
+                scrollViewer.ScrollToBottom();
+            }
+        }
     }
 }
