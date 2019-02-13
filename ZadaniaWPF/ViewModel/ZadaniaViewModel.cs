@@ -34,7 +34,10 @@ namespace ZadaniaWPF.ViewModel
 
 
             if (System.IO.File.Exists(SciezkaPlikuXml))
+            {
                 model = Model.PlikXML.Czytaj(SciezkaPlikuXml);
+            }
+
             else
             {
                 model = new Model.Zadania();

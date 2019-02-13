@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM_EA_20181124", "CM_EA_201
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZadaniaWPF", "ZadaniaWPF\ZadaniaWPF.csproj", "{EB2F2A3D-F212-45B3-8C78-ADFB4444EF74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events", "Events\Events.csproj", "{BF72E42B-1616-4463-9D03-7C390ADE2EDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EB2F2A3D-F212-45B3-8C78-ADFB4444EF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB2F2A3D-F212-45B3-8C78-ADFB4444EF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB2F2A3D-F212-45B3-8C78-ADFB4444EF74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF72E42B-1616-4463-9D03-7C390ADE2EDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF72E42B-1616-4463-9D03-7C390ADE2EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF72E42B-1616-4463-9D03-7C390ADE2EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF72E42B-1616-4463-9D03-7C390ADE2EDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
